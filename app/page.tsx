@@ -6,7 +6,14 @@ import { button as buttonStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
-import NoteEditer from "@/components/noteEditer";
+
+
+import dynamic from 'next/dynamic'
+
+const NoteEditer = dynamic(() => import('@/components/noteEditer'), { 
+  ssr: false,
+  loading: () => <p>Loading editor...</p>
+})
 
 
 

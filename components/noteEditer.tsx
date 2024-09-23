@@ -1,9 +1,9 @@
-'use client'
-import { EditorType, CustomElement } from "@/types/slate";
+"use client"
+import { EditorType, CustomElement, CodeElementType } from "@/types/slate";
 // Import React dependencies.
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 // Import the Slate editor factory.
-import { collapse, createEditor, Node, NodeEntry, } from 'slate'
+import { collapse, createEditor, Node, NodeEntry, Operation, } from 'slate'
 import { BaseEditor, Descendant, Transforms, Element, Editor } from 'slate'
 import { ReactEditor, Slate, RenderElementProps, RenderLeafProps, useSlate } from 'slate-react'
 
@@ -35,25 +35,36 @@ const CustomEditor = {
 
   toggleCodeBlock(editor: EditorType) {
     const isActive = CustomEditor.isCodeBlockActive(editor)
+    console.log(isActive)
     Transforms.setNodes(
       editor,
       { type: isActive ? null : 'code' },
-      { match: n => Editor.isBlock(editor, n) }
+      { match: n => Element.isElement(n) && Editor.isBlock(editor, n) }
     )
   },
 }
 
-const initialValue: Descendant[] = [
-  {
-    type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
-  },
-]
+
+
+
+
 
 export default function NoteEditer() {
 
   const [editor] = useState(() => withReact(createEditor()))
   // Render the Slate context.
+
+  const initialValue = useMemo(
+    () =>
+      JSON.parse(localStorage.getItem('content')!!) || 
+    [
+        {
+          type: 'paragraph',
+          children: [{ text: 'A line of text in a paragraph.' }],
+        },
+      ],
+    []
+  )
 
   const renderElement = useCallback((props: RenderElementProps) => {
     switch (props.element.type) {
@@ -73,8 +84,8 @@ export default function NoteEditer() {
   
     return (
       <button 
-        className={`border-[1px] rounded-[5px] px-[5px] ${
-          CustomEditor.isBoldMarkActive(editor) ? 'text-red-400' : ''
+        className={`border-[1px] border-black rounded-[5px] px-[5px] ${
+          CustomEditor.isBoldMarkActive(editor) ? 'font-bold text-white bg-slate-900' : ''
         }`}
         onMouseDown={event => {
           event.preventDefault()
@@ -89,8 +100,21 @@ export default function NoteEditer() {
 
 
   return (
-    <Slate editor={editor} initialValue={initialValue}>
-      <div className="flex gap-2">
+    <Slate 
+    editor={editor} 
+    initialValue={initialValue}
+    onChange={value=>{
+      
+      const isAstChange = editor.operations.some(
+        (op: Operation) => 'set_selection' !== op.type
+      )
+
+      if(isAstChange) {
+        const content = JSON.stringify(value)
+        localStorage.setItem('content', content)
+      }
+    }}>
+      <div className="flex gap-2 border-[1px] border-black p-1">
         <BoldButton/>
         <button
           onMouseDown={event => {
@@ -101,7 +125,7 @@ export default function NoteEditer() {
           Code Block
         </button>
         </div>
-      <Editable
+      <Editable className="mt-2"
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         onKeyDown={event => {
@@ -112,6 +136,7 @@ export default function NoteEditer() {
           // Replace the `onKeyDown` logic with our new commands.
           switch (event.key) {
             case '`': {
+              console.log('작동')
               event.preventDefault()
               CustomEditor.toggleCodeBlock(editor)
               break
@@ -131,7 +156,7 @@ export default function NoteEditer() {
 
 const CodeElement = (props: RenderElementProps) => {
   return (
-    <pre
+    <pre className="bg-gray-100 border border-gray-300 rounded-md p-4 font-mono text-sm overflow-x-auto"
       {...props.attributes}>
       <code>{props.children}</code>
     </pre>
@@ -139,7 +164,7 @@ const CodeElement = (props: RenderElementProps) => {
 };
 
 const DefaultElement = (props: RenderElementProps) => {
-  return <p {...props.attributes}>{props.children}</p>
+  return <p{...props.attributes}>{props.children}</p>
 }
 
 

@@ -4,24 +4,24 @@ import { HistoryEditor } from 'slate-history'
 
 export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor
 
-export type ParagraphElement = {
+export type ParagraphElementType = {
   type: 'paragraph'
   children: CustomText[]
 }
 
-export type HeadingElement = {
+export type HeadingElementType = {
   type: 'heading'
   level: number
   children: CustomText[]
 }
 
-export type CodeElement ={
+export type CodeElementType ={
   type: 'code'
-  language:'string' | 'javascript' | 'typescript' | 'html' | 'css' | 'json' | 'bash' | 'python' | 'java' | 'c++' | 'cpp' | 'csharp' | 'objectivec' | 'ruby' | 'go' | 'perl'
-  value:'string'
+  language:|'javascript' | 'typescript' | 'html' | 'css' | 'json' | 'bash' | 'python' | 'java' | 'c++' | 'cpp' | 'csharp' | 'objectivec' | 'ruby' | 'go' | 'perl'
+  children: CustomText[]
 }
 
-export type CustomElement = ParagraphElement | HeadingElement | CodeElement
+export type CustomElement = ParagraphElementType | HeadingElementType | CodeElementType
 
 export type EditorType = BaseEditor & ReactEditor & HistoryEditor
 
