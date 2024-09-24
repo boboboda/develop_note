@@ -2,7 +2,7 @@ import { BaseEditor } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { HistoryEditor } from 'slate-history'
 
-export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor
+export type CustomEditorType = BaseEditor & ReactEditor & HistoryEditor
 
 export type ParagraphElementType = {
   type: 'paragraph'
@@ -23,15 +23,20 @@ export type CodeElementType ={
 
 export type CustomElement = ParagraphElementType | HeadingElementType | CodeElementType
 
-export type EditorType = BaseEditor & ReactEditor & HistoryEditor
-
-export type FormattedText = { text: string; bold?: true }
-
-export type CustomText = FormattedText
+export type CustomText = {
+  text: string
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  code?: boolean
+  fontSize?: number
+  color?: string
+  [key: string]: any  // 추가 속성을 위한 인덱스 시그니처
+}
 
 declare module 'slate' {
   interface CustomTypes {
-    Editor: CustomEditor
+    Editor: CustomEditorType
     Element: CustomElement
     Text: CustomText
   }
