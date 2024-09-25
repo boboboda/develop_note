@@ -5,10 +5,13 @@ import { useEditor, EditorContent, Extension } from '@tiptap/react'
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
-import { EditorProvider, useCurrentEditor } from '@tiptap/react'
+import TextAlign from '@tiptap/extension-text-align'
+import Highlight from '@tiptap/extension-highlight'
+import BulletList from '@tiptap/extension-bullet-list'
+import { EditorProvider, useCurrentEditor} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React from 'react'
-import { faUser, faBold, faItalic } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBold, faItalic, faHighlighter, faAlignLeft, faAlignCenter, faAlignRight, faAlignJustify } from '@fortawesome/free-solid-svg-icons';
 import { 
   BeakerIcon, BoldIcon, ItalicIcon, 
   StrikethroughIcon, CodeBracketIcon, XCircleIcon, 
@@ -16,6 +19,12 @@ import {
   ListBulletIcon, CodeBracketSquareIcon, CommandLineIcon,
   MinusIcon, ArrowTurnDownLeftIcon, ArrowLeftIcon, ArrowRightIcon
 } from '@heroicons/react/24/outline'
+
+
+import { Button } from '@nextui-org/button'
+import ColorButton from './colorButtons/colorButton'
+import { Tooltip } from '@nextui-org/tooltip'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface CustomExtensionOptions {
     awesomeness: number
@@ -31,8 +40,8 @@ const MenuBar = () => {
   return (
     <div className="control-group">
       <div className="button-group">
-        <button
-          onClick={() => editor.chain().focus().toggleBold().run()}
+        <Tooltip content='Bold' className='bg-[#e4dddd]'>
+        <Button onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={
             !editor.can()
               .chain()
@@ -40,11 +49,13 @@ const MenuBar = () => {
               .toggleBold()
               .run()
           }
-          className={editor.isActive('bold') ? 'is-active' : ''}
-        >
+          className={editor.isActive('bold') ? 'is-active' : ''} >
           <BoldIcon className="h-4 w-4"></BoldIcon>
-        </button>
-        <button
+        </Button>
+        </Tooltip>
+        
+        
+        <Button
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={
             !editor.can()
@@ -56,8 +67,8 @@ const MenuBar = () => {
           className={editor.isActive('italic') ? 'is-active' : ''}
         >
           <ItalicIcon className="h-4 w-4"></ItalicIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={
             !editor.can()
@@ -69,8 +80,8 @@ const MenuBar = () => {
           className={editor.isActive('strike') ? 'is-active' : ''}
         >
           <StrikethroughIcon className="h-4 w-4"></StrikethroughIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleCode().run()}
           disabled={
             !editor.can()
@@ -82,86 +93,62 @@ const MenuBar = () => {
           className={editor.isActive('code') ? 'is-active' : ''}
         >
           <CodeBracketIcon className="h-4 w-4"></CodeBracketIcon>
-        </button>
-        <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
+        </Button>
+        <Button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
           <XCircleIcon className='h-4 w-4'></XCircleIcon>  
-        </button>
-        <button onClick={() => editor.chain().focus().clearNodes().run()}>
+        </Button>
+        <Button onClick={() => editor.chain().focus().clearNodes().run()}>
           <TrashIcon className='h-4 w-4'></TrashIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={editor.isActive('paragraph') ? 'is-active' : ''}
         >
           <DocumentTextIcon className="h-4 w-4"></DocumentTextIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
         >
           <H1Icon className="h-4 w-4"></H1Icon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
         >
           <H2Icon className="h-4 w-4"></H2Icon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
           className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
         >
           <H3Icon className="h-4 w-4"></H3Icon>
-        </button>
-        {/* <button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-          className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
-        >
-          H4
-        </button>
-        <button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-          className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
-        >
-          H5
-        </button>
-        <button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-          className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
-        >
-          H6
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive('bulletList') ? 'is-active' : ''}
         >
-          Bullet list
-        </button> */}
-        <button
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive('orderedList') ? 'is-active' : ''}
-        >
           <ListBulletIcon className="h-4 w-4"></ListBulletIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive('codeBlock') ? 'is-active' : ''}
         >
           <CodeBracketSquareIcon className="h-4 w-4"></CodeBracketSquareIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={editor.isActive('blockquote') ? 'is-active' : ''}
         >
           <CommandLineIcon className="h-4 w-4"></CommandLineIcon>
-        </button>
-        <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+        </Button>
+        <Button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <MinusIcon className="h-4 w-4"></MinusIcon>
-        </button>
-        <button onClick={() => editor.chain().focus().setHardBreak().run()}>
+        </Button>
+        <Button onClick={() => editor.chain().focus().setHardBreak().run()}>
           <ArrowTurnDownLeftIcon className="h-4 w-4"></ArrowTurnDownLeftIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().undo().run()}
           disabled={
             !editor.can()
@@ -172,8 +159,8 @@ const MenuBar = () => {
           }
         >
           <ArrowLeftIcon className="h-4 w-4"></ArrowLeftIcon>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => editor.chain().focus().redo().run()}
           disabled={
             !editor.can()
@@ -184,13 +171,26 @@ const MenuBar = () => {
           }
         >
           <ArrowRightIcon className="h-4 w-4"></ArrowRightIcon>
-        </button>
-        <button
-          onClick={() => editor.chain().focus().setColor('#958DF1').run()}
-          className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}
-        >
-          Purple
-        </button>
+        </Button>
+
+        <Button onClick={() => 
+          editor.chain().focus().toggleHighlight().run()} className={editor.isActive('highlight') ? 'is-active' : ''}>
+          <FontAwesomeIcon icon={faHighlighter}></FontAwesomeIcon>
+        </Button>
+        <Button onClick={() => editor.chain().focus().setTextAlign('left').run()} className={editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}>
+          <FontAwesomeIcon icon={faAlignLeft}></FontAwesomeIcon>
+        </Button>
+        <Button onClick={() => editor.chain().focus().setTextAlign('center').run()} className={editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''}>
+        <FontAwesomeIcon icon={faAlignCenter}></FontAwesomeIcon>
+        </Button>
+        <Button onClick={() => editor.chain().focus().setTextAlign('right').run()} className={editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''}>
+        <FontAwesomeIcon icon={faAlignRight}></FontAwesomeIcon>
+        </Button>
+        <Button onClick={() => editor.chain().focus().setTextAlign('justify').run()} className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}>
+        <FontAwesomeIcon icon={faAlignJustify}></FontAwesomeIcon>
+        </Button>
+
+        <ColorButton></ColorButton>
       </div>
     </div>
   )
@@ -198,7 +198,13 @@ const MenuBar = () => {
 
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
+  ListItem,
   TextStyle,
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
+    defaultAlignment: 'justify'
+  }),
+  Highlight,
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
