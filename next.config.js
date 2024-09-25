@@ -1,32 +1,15 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: [
-        {
-          loader: 'style-loader',
+const NextConfig = {
+  experimental: {
+    turbo: {
+      rules: {
+        "*.scss": {
+          loaders: ["sass-loader"],
+          as: "*.css",
         },
-        {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-          },
-        },
-        {
-          loader: 'resolve-url-loader',
-          options: {
-            sourceMap: true,
-          },
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        },
-      ],
-    });
-    return config;
-  },
+      },
+    }
+  }
 };
+
+module.exports = NextConfig;

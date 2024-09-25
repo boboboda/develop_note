@@ -2,27 +2,24 @@
 
 import { useEditor, EditorContent, Extension } from '@tiptap/react'
 
-import './styles.scss'
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBold, faItalic } from '@fortawesome/free-solid-svg-icons';
+import { 
+  BeakerIcon, BoldIcon, ItalicIcon, 
+  StrikethroughIcon, CodeBracketIcon, XCircleIcon, 
+  TrashIcon, DocumentTextIcon, H1Icon, H2Icon, H3Icon,
+  ListBulletIcon, CodeBracketSquareIcon, CommandLineIcon,
+  MinusIcon, ArrowTurnDownLeftIcon, ArrowLeftIcon, ArrowRightIcon
+} from '@heroicons/react/24/outline'
 
 export interface CustomExtensionOptions {
     awesomeness: number
   }
-  
-  const CustomExtension = Extension.create<CustomExtensionOptions>({
-    addOptions() {
-      return {
-        awesomeness: 100,
-      }
-    },
-  })
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
@@ -45,7 +42,7 @@ const MenuBar = () => {
           }
           className={editor.isActive('bold') ? 'is-active' : ''}
         >
-          <FontAwesomeIcon icon={faBold} />
+          <BoldIcon className="h-4 w-4"></BoldIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -58,7 +55,7 @@ const MenuBar = () => {
           }
           className={editor.isActive('italic') ? 'is-active' : ''}
         >
-          <FontAwesomeIcon icon={faItalic} />
+          <ItalicIcon className="h-4 w-4"></ItalicIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -71,7 +68,7 @@ const MenuBar = () => {
           }
           className={editor.isActive('strike') ? 'is-active' : ''}
         >
-          Strike
+          <StrikethroughIcon className="h-4 w-4"></StrikethroughIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleCode().run()}
@@ -84,39 +81,39 @@ const MenuBar = () => {
           }
           className={editor.isActive('code') ? 'is-active' : ''}
         >
-          Code
+          <CodeBracketIcon className="h-4 w-4"></CodeBracketIcon>
         </button>
         <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
-          Clear marks
+          <XCircleIcon className='h-4 w-4'></XCircleIcon>  
         </button>
         <button onClick={() => editor.chain().focus().clearNodes().run()}>
-          Clear nodes
+          <TrashIcon className='h-4 w-4'></TrashIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={editor.isActive('paragraph') ? 'is-active' : ''}
         >
-          Paragraph
+          <DocumentTextIcon className="h-4 w-4"></DocumentTextIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
         >
-          H1
+          <H1Icon className="h-4 w-4"></H1Icon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
         >
-          H2
+          <H2Icon className="h-4 w-4"></H2Icon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
           className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
         >
-          H3
+          <H3Icon className="h-4 w-4"></H3Icon>
         </button>
-        <button
+        {/* <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
           className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
         >
@@ -139,30 +136,30 @@ const MenuBar = () => {
           className={editor.isActive('bulletList') ? 'is-active' : ''}
         >
           Bullet list
-        </button>
+        </button> */}
         <button
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor.isActive('orderedList') ? 'is-active' : ''}
         >
-          Ordered list
+          <ListBulletIcon className="h-4 w-4"></ListBulletIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive('codeBlock') ? 'is-active' : ''}
         >
-          Code block
+          <CodeBracketSquareIcon className="h-4 w-4"></CodeBracketSquareIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={editor.isActive('blockquote') ? 'is-active' : ''}
         >
-          Blockquote
+          <CommandLineIcon className="h-4 w-4"></CommandLineIcon>
         </button>
         <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-          Horizontal rule
+          <MinusIcon className="h-4 w-4"></MinusIcon>
         </button>
         <button onClick={() => editor.chain().focus().setHardBreak().run()}>
-          Hard break
+          <ArrowTurnDownLeftIcon className="h-4 w-4"></ArrowTurnDownLeftIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().undo().run()}
@@ -174,7 +171,7 @@ const MenuBar = () => {
               .run()
           }
         >
-          Undo
+          <ArrowLeftIcon className="h-4 w-4"></ArrowLeftIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().redo().run()}
@@ -186,7 +183,7 @@ const MenuBar = () => {
               .run()
           }
         >
-          Redo
+          <ArrowRightIcon className="h-4 w-4"></ArrowRightIcon>
         </button>
         <button
           onClick={() => editor.chain().focus().setColor('#958DF1').run()}
