@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import {Dropdown, ButtonGroup, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDoubleDownIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useCurrentEditor } from "@tiptap/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
@@ -61,18 +61,28 @@ export default function ColorButton() {
   }
 
   return (
-    <ButtonGroup variant="flat" className="">
-      <Dropdown placement="bottom-end">
-        <DropdownTrigger>
-          <Button>
-          <div
-          className={editor.isActive('textStyle', { color: currentEditorColor }) ? 'is-active' : 'absolute'}
+    <ButtonGroup variant="flat" className="relative">
+      <Button className="w-[80px]">
+        <div className="w-full flex flex-row items-center px-2 gap-2">
+        <span>
+        {selectedColor?.label}
+        </span>
+          
+        <div
+          className={editor.isActive('textStyle', { color: currentEditorColor }) ? 'is-active' : ''}
           style={{
             width: "15px", 
             height: "15px",  
             backgroundColor: currentEditorColor,
             border: `2px solid ${currentEditorColor}`,
           }}/>
+        </div>
+        
+          </Button>
+      <Dropdown placement="bottom-end">
+        <DropdownTrigger>
+        <Button isIconOnly className="absolute left-[80px]">
+            <ChevronDownIcon className="h-4 w-4"></ChevronDownIcon>
           </Button>
         </DropdownTrigger>
         <DropdownMenu

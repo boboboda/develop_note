@@ -1,0 +1,28 @@
+$white: #ffffff;
+
+.tiptap {
+  .code-block {
+    position: relative;
+  
+    select {
+      position: absolute;
+      right: 0.5rem;
+      top: 0.5rem;
+      padding-left: 10px;
+      background-color: $white;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="Black" d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 1.5em;
+      padding-right: 2rem;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 5px;
+    }
+    
+    select::-ms-expand {
+      display: none;
+    }
+  }
+}

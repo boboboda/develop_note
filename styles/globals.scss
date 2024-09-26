@@ -9,6 +9,7 @@ $white: #ffffff;
 $gray-3: #b3b0b0;
 $gray-2: #e8e8e8;
 $gray-1: #d9d9d9;
+$sky-bule: #70cff8;
 
 .tiptap {
   :first-child {
@@ -17,6 +18,7 @@ $gray-1: #d9d9d9;
 
   padding: 5px;
   margin: 5px;
+  margin-left: px;
 
   /* List styles */
   ul,
@@ -87,7 +89,7 @@ $gray-1: #d9d9d9;
     border-radius: 0.5rem;
     color: $white;
     font-family: 'JetBrainsMono', monospace;
-    margin: 10px;
+    margin: 1.5rem 0;
     padding: 0.75rem 1rem;
 
     code {
@@ -95,6 +97,59 @@ $gray-1: #d9d9d9;
       color: inherit;
       font-size: 0.8rem;
       padding: 0;
+    }
+
+    /* Code styling */
+    .hljs-comment,
+    .hljs-quote {
+      color: #616161;
+    }
+
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-attribute,
+    .hljs-tag,
+    .hljs-name,
+    .hljs-regexp,
+    .hljs-link,
+    .hljs-name,
+    .hljs-selector-id,
+    .hljs-selector-class {
+      color: #f98181;
+    }
+
+    .hljs-number,
+    .hljs-meta,
+    .hljs-built_in,
+    .hljs-builtin-name,
+    .hljs-literal,
+    .hljs-type,
+    .hljs-params {
+      color: #fbbc88;
+    }
+
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #b9f18d;
+    }
+
+    .hljs-title,
+    .hljs-section {
+      color: #faf594;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+      color: #70cff8;
+    }
+
+    .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .hljs-strong {
+      font-weight: 700;
     }
   }
 
@@ -118,7 +173,7 @@ $gray-1: #d9d9d9;
   }
 
   .button-group Button {
-    @apply min-h-[40px] min-w-[40px] p-0 border-none m-[5px] cursor-pointer bg-slate-400 rounded-[5px] 
+    @apply min-h-[40px] min-w-[40px] p-0 border-none m-[5px] cursor-pointer bg-slate-100
            transition-colors duration-300 ease-in-out
            hover:bg-[#e4dddd]
            disabled:bg-white disabled:cursor-not-allowed items-center
@@ -144,15 +199,5 @@ $gray-1: #d9d9d9;
   .color-button-group Button {
     @apply bg-white
   }
-
-  .color-button-group button:nth-child(1) { 
-    @apply pr-1 text-black text-[12px] px-[0] pl-[15px] font-medium bg-slate-400
-  }
-
-  .color-button-group button:nth-child(2) { 
-    @apply bg-slate-400 cursor-pointer hover:bg-[#e4dddd] disabled:bg-white disabled:cursor-not-allowed items-center transition-colors duration-300 ease-in-out
-  }
-
-  
 }
 
