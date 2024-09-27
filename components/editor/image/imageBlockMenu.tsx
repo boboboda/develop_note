@@ -3,11 +3,11 @@ import React, { useCallback, useRef } from 'react'
 import { Instance, sticky } from 'tippy.js'
 import { v4 as uuid } from 'uuid'
 
-import { Toolbar } from '@/components/ui/ToolBar'
+import { Toolbar } from '@/components/ui/Toolbar'
 import { Icon } from '@/components/icons'
 import { ImageBlockWidth } from './imageBlockWidth'
 import { MenuProps } from '@/components/menus/types'
-import { getRenderContainer } from '@/utils/cssVar'
+import { getRenderContainer } from '@/lib/utils'
 
 export const ImageBlockMenu = ({ editor, appendTo }: MenuProps): JSX.Element => {
   const menuRef = useRef<HTMLDivElement>(null)

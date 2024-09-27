@@ -2,202 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Basic editor styles */
-$purple-light: #e0b3ff;
-$black: #000000;
-$white: #ffffff;
-$gray-3: #b3b0b0;
-$gray-2: #e8e8e8;
-$gray-1: #d9d9d9;
-$sky-bule: #70cff8;
+@import './editor.css';
 
-.tiptap {
-  :first-child {
-    margin-top: 0px;
-  }
+@layer base {
+  body {
+    @apply bg-white text-neutral-900 dark:text-white dark:bg-black;
+    @apply antialiased;
 
-  padding: 5px;
-  margin: 5px;
-  margin-left: px;
-
-  /* List styles */
-  ul,
-  ol {
-    list-style: revert;
-    padding: 0 1rem;
-    margin: 1.25rem 1rem 1.25rem 0.4rem;
-
-    li p {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
-      color: $black
-    }
-
-    // li ::before {
-    //   content: "• ";
-    //   color: $black;
-    // }
-  }
-
-  /* Heading styles */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-    margin-top: 2.5rem;
-    text-wrap: pretty;
-  }
-
-  h1,
-  h2 {
-    margin-top: 3.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  h1 {
-    font-size: 1.4rem;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-size: 1rem;
-  }
-
-  /* Code and preformatted text styles */
-  code {
-    background-color: $purple-light;
-    border-radius: 0.4rem;
-    color: $black;
-    font-size: 0.85rem;
-    padding: 0.25em 0.3em;
-  }
-
-  pre {
-    background: $black;
-    border-radius: 0.5rem;
-    color: $white;
-    font-family: 'JetBrainsMono', monospace;
-    margin: 1.5rem 0;
-    padding: 0.75rem 1rem;
-
-    code {
-      background: none;
-      color: inherit;
-      font-size: 0.8rem;
-      padding: 0;
-    }
-
-    /* Code styling */
-    .hljs-comment,
-    .hljs-quote {
-      color: #616161;
-    }
-
-    .hljs-variable,
-    .hljs-template-variable,
-    .hljs-attribute,
-    .hljs-tag,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-link,
-    .hljs-name,
-    .hljs-selector-id,
-    .hljs-selector-class {
-      color: #f98181;
-    }
-
-    .hljs-number,
-    .hljs-meta,
-    .hljs-built_in,
-    .hljs-builtin-name,
-    .hljs-literal,
-    .hljs-type,
-    .hljs-params {
-      color: #fbbc88;
-    }
-
-    .hljs-string,
-    .hljs-symbol,
-    .hljs-bullet {
-      color: #b9f18d;
-    }
-
-    .hljs-title,
-    .hljs-section {
-      color: #faf594;
-    }
-
-    .hljs-keyword,
-    .hljs-selector-tag {
-      color: #70cff8;
-    }
-
-    .hljs-emphasis {
-      font-style: italic;
-    }
-
-    .hljs-strong {
-      font-weight: 700;
-    }
-  }
-
-  blockquote {
-    border-left: 3px solid $gray-3;
-    margin-left: 10px;
-    padding-left: 1rem;
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid $gray-2;
-    margin: 2rem 0;
+    font-size: 16px;
   }
 }
 
-@layer components {
+html,
+body {
+  @apply bg-white text-neutral-900 dark:bg-black dark:text-white;
+}
 
-  .control-group {
-     @apply flex flex-row flex-wrap
-  }
+input::placeholder,
+textarea::placeholder {
+  @apply text-black/50 dark:text-white/40;
+}
 
-  .button-group Button {
-    @apply min-h-[40px] min-w-[40px] p-0 border-none m-[5px] cursor-pointer bg-slate-100
-           transition-colors duration-300 ease-in-out
-           hover:bg-[#e4dddd]
-           disabled:bg-white disabled:cursor-not-allowed items-center
-  }
-  
-  .button-group Button.is-active {
-    @apply bg-[#8f5dec] text-white;
-  }
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  @apply text-black/50 dark:text-white/40;
+}
 
-  .button-group {
-    @apply flex flex-row mb-[10px] flex-wrap
-  }
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  @apply text-black/40 dark:text-white/40;
+}
 
-  .color-button-group {
-    @apply min-h-[40px] min-w-[40px]; 
-  }
+.react-colorful {
+  width: 100% !important;
+}
 
+[data-reference-hidden] {
+  opacity: 0;
+  pointer-events: none;
+}
 
-  .color-button {
-    @apply m-0 text-black w-[100px]
-  }
+::-webkit-scrollbar {
+  @apply w-1 h-1 bg-neutral-500/20;
+}
 
-  .color-button-group Button {
-    @apply bg-white
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-500/50 rounded-full;
+}
+
+input[type='range'] {
+  @apply h-2.5 bg-neutral-200 border-0 rounded appearance-none active:bg-neutral-300 transition-all;
+  @apply dark:bg-neutral-700 dark:active:bg-neutral-600;
+
+  &::-webkit-slider-thumb {
+    @apply appearance-none w-3 h-5 bg-neutral-800 rounded-full active:bg-neutral-900 active:w-4 active:h-6 transition-all;
+    @apply dark:bg-neutral-100 dark:active:bg-white;
   }
 }
+
 

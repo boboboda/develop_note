@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cssVar'
+import { cn } from '@/lib/utils'
 import { HTMLProps, forwardRef } from 'react'
 
 export type SurfaceProps = HTMLProps<HTMLDivElement> & {

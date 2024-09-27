@@ -214,7 +214,7 @@ const MenuBar = () => {
 
         <ColorButton></ColorButton>
         <ImgButton></ImgButton>
-        <ImageBlockMenu editor={editor} appendTo={menuContainerRef} />
+        {/* <ImageBlockMenu editor={editor} appendTo={menuContainerRef} /> */}
       </div>
     </div>
   )
