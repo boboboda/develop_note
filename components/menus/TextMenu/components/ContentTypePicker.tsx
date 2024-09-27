@@ -53,6 +53,7 @@ export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
                   <Icon name={option.icon} className="w-4 h-4 mr-1" />
                   {option.label}
                 </DropdownButton>
+               
               )
             } else if (isCategory(option)) {
               return (

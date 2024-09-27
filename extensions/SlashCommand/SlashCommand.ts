@@ -76,6 +76,7 @@ export const SlashCommand = Extension.create({
           view.focus()
         },
         items: ({ query }: { query: string }) => {
+          // 그룹 타입에 이벤트 관련 타입이 지정되어 있음
           const withFilteredCommands = GROUPS.map(group => ({
             ...group,
             commands: group.commands

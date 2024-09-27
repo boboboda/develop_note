@@ -12,6 +12,11 @@ export type TableOfContentsProps = {
 }
 
 export const TableOfContents = memo(({ editor, onItemClick }: TableOfContentsProps) => {
+
+  if (!editor || !editor.storage || !editor.storage.tableOfContents) {
+    return null; // 에디터가 완전히 준비되지 않았을 때 null 처리
+  }
+
   const content = useEditorState({
     editor,
     selector: ctx => (ctx.editor.storage.tableOfContents as TableOfContentsStorage).content,

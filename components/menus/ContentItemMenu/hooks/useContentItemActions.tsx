@@ -46,6 +46,7 @@ const useContentItemActions = (editor: Editor, currentNode: Node | null, current
       const currentNodeIsEmptyParagraph = currentNode?.type.name === 'paragraph' && currentNode?.content?.size === 0
       const focusPos = currentNodeIsEmptyParagraph ? currentNodePos + 2 : insertPos + 2
 
+      // + 눌렀을 때 '/' 출력 슬래쉬 출력 시 이벤트 발생 -> contentTypePicker
       editor
         .chain()
         .command(({ dispatch, tr, state }) => {

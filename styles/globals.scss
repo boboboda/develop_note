@@ -60,4 +60,38 @@ input[type='range'] {
   }
 }
 
+@layer components {
+
+  .control-group {
+     @apply flex flex-row flex-wrap
+  }
+
+  .button-group Button {
+    @apply min-h-[40px] min-w-[40px] p-0 border-none m-[5px] cursor-pointer bg-slate-100
+           transition-colors duration-300 ease-in-out
+           hover:bg-[#e4dddd]
+           disabled:bg-white disabled:cursor-not-allowed items-center
+  }
+  
+  .button-group Button.is-active {
+    @apply bg-[#8f5dec] text-white;
+  }
+
+  .button-group {
+    @apply flex flex-row mb-[10px] flex-wrap
+  }
+
+  .color-button-group {
+    @apply min-h-[40px] min-w-[40px]; 
+  }
+
+
+  .color-button {
+    @apply m-0 text-black w-[100px]
+  }
+
+  .color-button-group Button {
+    @apply bg-white
+  }
+}
 
