@@ -25,7 +25,7 @@ export const BlockEditor = () => {
   console.log(cn('bg-red-500', 'text-white', { 'hover:bg-red-700': true }));
 
   const leftSidebar = useSidebar()
-  const { editor } = useBlockEditor()
+  const { editor } = useBlockEditor({clientID: "kim", tableUseContent: true})
 
   if (!editor ) {
     return null
@@ -33,13 +33,13 @@ export const BlockEditor = () => {
 
   return (
     <div className="flex h-full" ref={menuContainerRef}>
-      {/* <Sidebar isOpen={leftSidebar.isOpen} onClose={leftSidebar.close} editor={editor} /> */}
+      <Sidebar isOpen={leftSidebar.isOpen} onClose={leftSidebar.close} editor={editor} />
       <div className="relative flex flex-col flex-1 h-full overflow-hidden">
-        {/* <EditorHeader
+        <EditorHeader
           editor={editor}
           isSidebarOpen={leftSidebar.isOpen}
           toggleSidebar={leftSidebar.toggle}
-        /> */}
+        />
         <EditorContent editor={editor} className="flex-1 overflow-y-auto" />
         <ContentItemMenu editor={editor} />
         <LinkMenu editor={editor} appendTo={menuContainerRef} />

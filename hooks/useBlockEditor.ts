@@ -11,8 +11,10 @@ declare global {
   }
 }
 
-export const useBlockEditor = () => {
+export const useBlockEditor = ({tableUseContent , clientID}: {tableUseContent: boolean, clientID:string}) => {
   // 에디터를 초기화하는 훅
+
+
   const editor = useEditor({
     immediatelyRender: true, // 즉시 렌더링 여부
     shouldRerenderOnTransaction: false, // 트랜잭션마다 재렌더링 여부
@@ -25,7 +27,10 @@ export const useBlockEditor = () => {
       }
     },
     extensions: [
-      ...ExtensionKit({}),
+      ...ExtensionKit({
+        clientID,
+        tableUseContent
+      }),
     ].filter((e): e is AnyExtension => e !== undefined), // 확장 설정
     editorProps: {
       attributes: {

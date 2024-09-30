@@ -14,6 +14,7 @@ export type TableOfContentsProps = {
 export const TableOfContents = memo(({ editor, onItemClick }: TableOfContentsProps) => {
 
   if (!editor || !editor.storage || !editor.storage.tableOfContents) {
+    console.log('실행안됨')
     return null; // 에디터가 완전히 준비되지 않았을 때 null 처리
   }
 

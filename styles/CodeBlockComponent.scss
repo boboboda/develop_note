@@ -19,10 +19,16 @@ $white: #ffffff;
       -moz-appearance: none;
       appearance: none;
       border-radius: 5px;
+      color: black;
     }
     
     select::-ms-expand {
       display: none;
     }
+
+    option {
+      @apply text-black
+    }
   }
+  
 }

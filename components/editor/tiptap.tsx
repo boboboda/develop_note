@@ -1,6 +1,6 @@
 'use client'
 
-import { useEditor, EditorContent, Extension, ReactNodeViewRenderer, BubbleMenu } from '@tiptap/react'
+import { useEditor, EditorContent, Extension, ReactNodeViewRenderer, BubbleMenu, Editor } from '@tiptap/react'
 import '@/styles/index.css'
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
@@ -34,6 +34,8 @@ import html from 'highlight.js/lib/languages/xml'
 import CodeBlockComponent from './codeBlockComponet'
 import ImgButton from './imgButton'
 import ImageBlockMenu from './image/imageBlockMenu'
+import exp from 'constants'
+import { useBlockEditor } from '@/hooks/useBlockEditor'
 
 export interface CustomExtensionOptions {
   awesomeness: number
@@ -46,18 +48,18 @@ const lowlight = createLowlight(all)
   lowlight.register('js', js)
   lowlight.register('ts', ts)
 
-const MenuBar = () => {
-  const { editor } = useCurrentEditor()
+  type MenuEditorProps = {
+    editor: Editor
+  }
 
-  const menuContainerRef = useRef(null)
+export const MenuBar = ({ editor }: MenuEditorProps) => {
+  // const { editor } = useCurrentEditor()
+
+  // const menuContainerRef = useRef(null)
 
   if (!editor) {
     return null
   }
-
-  // useEffect(()=>{
-  //   editor.setEditable(true)
-  // }, [])
 
   return (
     <div className="control-group">
@@ -170,7 +172,7 @@ const MenuBar = () => {
         <Button onClick={() => editor.chain().focus().setHardBreak().run()}>
           <ArrowTurnDownLeftIcon className="h-4 w-4"></ArrowTurnDownLeftIcon>
         </Button>
-        <Button
+        {/* <Button
           onClick={() => editor.chain().focus().undo().run()}
           disabled={
             !editor.can()
@@ -193,7 +195,7 @@ const MenuBar = () => {
           }
         >
           <ArrowRightIcon className="h-4 w-4"></ArrowRightIcon>
-        </Button>
+        </Button> */}
 
         <Button onClick={() =>
           editor.chain().focus().toggleHighlight().run()} className={editor.isActive('highlight') ? 'is-active' : ''}>
@@ -220,7 +222,7 @@ const MenuBar = () => {
   )
 }
 
-const extensions = [
+export const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   ListItem,
   TextStyle,
@@ -281,9 +283,43 @@ const content = `
 </blockquote>
 `
 
-export default function Tiptap() {
+// export default function Tiptap() {
+//   return (
+//     <EditorProvider slotBefore={<MenuBar/>} extensions={extensions} content={content}></EditorProvider>
+//   )
+// }
+
+
+export default function Tiptap(){
+  const menuContainerRef = useRef(null)
+
+  // const leftSidebar = useSidebar()
+  const { editor } = useBlockEditor({tableUseContent: false, clientID: 'kju9038@gmail.com'});
+
+  if (!editor ) {
+    return null
+  }
+
   return (
-    <EditorProvider slotBefore={<MenuBar/>} extensions={extensions} content={content}></EditorProvider>
+    <div className="flex h-full" ref={menuContainerRef}>
+      
+      {/* <Sidebar isOpen={leftSidebar.isOpen} onClose={leftSidebar.close} editor={editor} /> */}
+      <div className="relative flex flex-col flex-1 h-full overflow-hidden">
+        {/* <EditorHeader
+          editor={editor}
+          isSidebarOpen={leftSidebar.isOpen}
+          toggleSidebar={leftSidebar.toggle}
+        /> */}
+        <MenuBar editor={editor}></MenuBar>
+        <EditorContent editor={editor} className="flex-1 overflow-y-auto" />
+        {/* <ContentItemMenu editor={editor} />
+        <LinkMenu editor={editor} appendTo={menuContainerRef} />
+        <TextMenu editor={editor} />
+        <ColumnsMenu editor={editor} appendTo={menuContainerRef} />
+        <TableRowMenu editor={editor} appendTo={menuContainerRef} />
+        <TableColumnMenu editor={editor} appendTo={menuContainerRef} /> */}
+        {/* <ImageBlockMenu editor={editor} appendTo={menuContainerRef} /> */}
+      </div>
+    </div>
   )
 }
-

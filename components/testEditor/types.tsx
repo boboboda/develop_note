@@ -1,10 +1,8 @@
 
-// export type EditorUser = {
-//   clientId: string
-//   name: string
-//   color: string
-//   initials?: string
-// }
+export type EditorUser = {
+  clientId: string
+  name: string
+}
 
 
 // export type AiTone =

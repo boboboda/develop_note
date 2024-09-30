@@ -1,8 +1,19 @@
 export class API {
   public static uploadImage = async (_file: File) => {
-    console.log('Image upload is disabled in the demo... Please implement the API.uploadImage method in your project.')
+
+    const reader = new FileReader();
+
+    let imageUrl: string = ''
+
+    reader.onload = () => {
+      imageUrl = reader.result as string; // reader.result는 string | ArrayBuffer 타입이므로 string으로 캐스팅
+  };
+  
+  reader.readAsDataURL(_file); // 파일을 base64로 읽음
+
+
     await new Promise(r => setTimeout(r, 500))
-    return '/placeholder-image.jpg'
+    return imageUrl
   }
 }
 

@@ -3,12 +3,19 @@ import { Icon } from '@/components/ui/Icon'
 import { Toolbar } from '@/components/ui/Toolbar'
 import { Editor } from '@tiptap/core'
 import { useEditorState } from '@tiptap/react'
+import { EditorInfo } from './EditorInfo'
+import { EditorUser } from './types'
 
 export type EditorHeaderProps = {
   isSidebarOpen?: boolean
   toggleSidebar?: () => void
   editor: Editor
   // collabState: WebSocketStatus
+}
+
+const user : EditorUser = {
+  clientId: 'kju9038@gmail.com',
+  name: '부영실',
 }
 
 export const EditorHeader = ({ editor, isSidebarOpen, toggleSidebar }: EditorHeaderProps) => {
@@ -34,6 +41,7 @@ export const EditorHeader = ({ editor, isSidebarOpen, toggleSidebar }: EditorHea
           </Toolbar.Button>
         </div>
       </div>
+      <EditorInfo characters={characters} words={words} user={user} />
     </div>
   )
 }

@@ -57,7 +57,7 @@ interface ExtensionKitProps {
   provider?: HocuspocusProvider | null
 }
 
-export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
+export const ExtensionKit = ({ tableUseContent, clientID }: {clientID: string , tableUseContent: boolean}) => [
   Document,
   Columns,
   TaskList,
@@ -103,10 +103,11 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
   Highlight.configure({ multicolor: true }),
   Underline,
   CharacterCount.configure({ limit: 50000 }),
-  TableOfContents,
-  TableOfContentsNode,
+
+  tableUseContent ? [TableOfContents, TableOfContentsNode] : null,
+  
   ImageUpload.configure({
-    clientId: provider?.document?.clientID,
+    clientId: clientID,
   }),
   ImageBlock,
   FileHandler.configure({
